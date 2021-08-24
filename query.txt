@@ -22,3 +22,88 @@ SELECT COUNT(*) FROM `departments`
 Quanti sono gli insegnanti che non hanno un numero di telefono?:
 SELECT COUNT(*) FROM `teachers` WHERE `phone` IS NULL
 
+
+snack 30/07
+
+Selezionare tutti i degrees (corsi di laurea) joinando i dati dei vari dipartimenti:
+SELECT * FROM `students` INNER JOIN degrees ON degrees.id = students.degree_id
+
+Selezionare tutti gli studenti in una join con exam_student, mostrando però solo il nome e il cognome dello studente e il voto.
+SELECT name, surname, vote FROM `students` INNER JOIN exam_student ON students.id = exam_student.student_id
+
+
+
+
+
+
+SELECT students.name, students.surname, COUNT(*) 
+FROM students 
+INNER JOIN exam_student ON exam_student.student_id = students.id 
+WHERE exam_student.vote >= 18
+GROUP BY students.id
+
+
+Selezioniamo tutti gli studenti, anche se non hanno fatto un esame, e mostriamo il numero di esami superati:
+SELECT students.name, students.surname, COUNT(exam_student.exam_id)
+FROM students 
+LEFT JOIN exam_student ON exam_student.student_id = students.id 
+WHERE exam_student.vote >= 18
+GROUP BY students.id
+ORDER BY students.id DESC
+
+
+
+Selezionare tutti gli studenti mostrando il voto e dove ha eseguito l’esame (sempre che ne abbia fatto uno)
+SELECT * FROM students
+LEFT JOIN exam_student ON students.id = exam_student.student_id
+LEFT JOIN exams ON exams.id = exam_student.exam_id
+ORDER BY students.id DESC
+
+______________________________
+
+contare quanti iscritti ci sono ogni anno
+SELECT COUNT(*) FROM students GROUP BY students.enrolment_date ASC
+
+
+contare gli insegnanti che hanno l'ufficio nello stesso edificio
+SELECT COUNT(*) FROM teachers GROUP BY teachers.office_adress
+
+
+calcolare la media dei voti di ogni appello
+SELECT AVG(vote) FROM exam_student 
+
+
+contare quanti corsi di laurea ci sono per ogni dipartimento
+SELECT COUNT(*) FROM degrees INNER JOIN departments ON departments.id = degrees.department_id
+
+
+selezionare tutti gli studenti iscritti al corso di laurea in economia
+SELECT * FROM students INNER JOIN degrees ON degrees.id = 53
+
+
+selezionare tutti i corsi di laurea del dipartimento di neuroscienze
+SELECT * FROM degrees INNER JOIN departments ON departments.id = degrees.department_ID where department_ID = 7
+
+
+selezionare tutti i corsi in cui insegna Fulvio Amato
+
+
+
+selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il relativo dipartimento in ordine alfabetico per cognome e nome
+
+
+
+selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+
+
+
+selezionare tutti i docenti che insegnano nel dipartimento di matematica
+SELECT name, surname FROM teachers 
+
+
+
+
+
+
+
+
